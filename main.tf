@@ -55,6 +55,9 @@ resource "azurerm_kubernetes_cluster" "this" {
     tags                   = merge(var.tags, var.agents_tags)
     zones                  = try([for zone in local.regions_by_name_or_display_name[var.location].zones : zone], null)
   }
+  api_server_access_profile {
+    vnet_integration_enabled = true
+  }
   auto_scaler_profile {
     balance_similar_node_groups = true
   }
